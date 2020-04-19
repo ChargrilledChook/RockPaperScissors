@@ -1,0 +1,36 @@
+<script>
+
+    const gameLength = 5;
+    const playerSelection = 'rock';
+    const computerSelection = computerPlay();
+    console.log(playRound(playerSelection, computerSelection));
+    
+    function playRound(playerSelection, computerSelection) 
+    {
+        
+    }
+
+    function game()
+    {
+        for (let i = 0; i < gameLength; i++)
+        {
+            playRound();
+            console.log(i + 1) // for debugging - works fine
+        }
+
+    }
+
+    function computerPlay()
+    {
+      let weapon = ["rock", "paper", "scissors"]
+      let compChoice = weapon[Math.floor(Math.random() * weapon.length)];
+      console.log(compChoice);
+      return weapon[compChoice]; 
+      // Code for choosing a random number taken from 
+      // https://www.geeksforgeeks.org/how-to-select-a-random-element-from-array-in-javascript/
+
+    }
+
+    // prompt() // get user input
+
+</script>
