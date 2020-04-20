@@ -1,7 +1,8 @@
+
 <script>
-    
     // A Bo5 game of rock paper scissors vs the computer. 
 
+    // The main  function which controls keeping score, launching rounds, game length and displaying the winner.
     function game()
     {
         let playerScore = 0;
@@ -37,6 +38,8 @@
         }
 
     }
+
+    // Plays a single round of RPS and returns the result. 1 = player wins, 2 = players loses
     function playRound(playerSelection, computerSelection) 
     {
         let result = getWinner(playerSelection, computerSelection) 
@@ -51,6 +54,7 @@
         }   
     }
 
+    // Picks a random move for the computer and returns it as a string
     function computerPlay()
     {
       let weapon = ["rock", "paper", "scissors"]
@@ -61,6 +65,7 @@
 
     }
 
+    //  Prompts  the player for input and converts answer to lowercase
     function playerPlay()
     {
         playerChoice = prompt ("Enter your move: " )
@@ -69,6 +74,7 @@
 
     }
 
+    // Determines winner based on RPS logic. Returns 1, 2, or 3 for player win, player loss or draw respectively
     function getWinner(player, computer)
     {
         if (player == computer)
