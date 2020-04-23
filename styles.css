@@ -1,0 +1,23 @@
+body{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
+
+.scores{
+
+    display: flex;
+    padding: 10px;
+}
+
+#pScore{
+
+    padding: 15px;
+}
+#cScore{
+
+    padding: 15px;
+}
