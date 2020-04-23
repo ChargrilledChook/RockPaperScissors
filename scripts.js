@@ -17,6 +17,11 @@ btnRock.addEventListener('click', function(){
     playRound('rock', computerPlay())
 });
 
+const humanBoard = document.querySelector('#pp')
+const robotBoard = document.querySelector('#cp')
+
+let humanScore = 0;
+let robotScore = 0;
 
 // Plays a single round of RPS and returns the result. 1 = player wins, 2 = players loses
 function playRound(playerSelection, computerSelection) 
@@ -25,10 +30,14 @@ function playRound(playerSelection, computerSelection)
 
     if (result == 1)
     {
-    return 1;
+        humanScore++;
+        humanBoard.textContent = humanScore;
+        return 1;
     }
     else if (result == 2)
     {
+        robotScore++;
+        robotBoard.textContent = robotScore;
         return 2;
     }   
 }
@@ -56,6 +65,9 @@ function playerPlay()
 // Determines winner based on RPS logic. Returns 1, 2, or 3 for player win, player loss or draw respectively
 function getWinner(player, computer)
 {
+    const win = `You won! ${player} beats ${computer}!`
+    const loss = `You lost! ${computer} beats ${player}!`
+
     if (player == computer)
     {
         console.log("Draw!")
@@ -65,12 +77,12 @@ function getWinner(player, computer)
     {
         if (computer == 'scissors')
         {
-            console.log("You won! Rock beats scissors!")
+            console.log(win)
             return 1;
         }
         else 
         {
-            console.log("You lost! Paper beats rock!")
+            console.log(loss)
             return 2;
         }
     }
@@ -78,12 +90,12 @@ function getWinner(player, computer)
     {
         if (computer == 'paper')
         {
-            console.log("You won! scissors beats paper!")
+            console.log(win)
             return 1;
         }
         else 
         {
-            console.log("You lost! rock beats scissors!")
+            console.log(loss)
             return 2;
         }
     }
@@ -91,12 +103,12 @@ function getWinner(player, computer)
     {
         if (computer == 'rock')
         {
-            console.log("You won! paper beats rock!")
+            console.log(win)
             return 1;
         }
         else 
         {
-            console.log("You lost! scissors beats paper!")
+            console.log(loss)
             return 2;
         }
     }
