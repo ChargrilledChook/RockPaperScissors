@@ -1,30 +1,47 @@
-// A Bo5 game of rock paper scissors vs the computer. This is version 2, refactored for a front end display, not just the console.
+// A game of rock paper scissors vs the computer. This is version 2, refactored for a front end display, not just the console.
 
-// HTML interactivity
-const btnScissors = document.querySelector('#scissors');
-btnScissors.addEventListener('click', function(){
-    playRound('scissors', computerPlay())
-});
-
-const btnPaper = document.querySelector('#paper');
-btnPaper.addEventListener('click', function(){
-    playRound('paper', computerPlay())
-});
-
-const btnRock = document.querySelector('#rock');
-btnRock.addEventListener('click', function(){
-    playRound('rock', computerPlay())
-});
-
-const humanBoard = document.querySelector('#pp') // Scoreboard and scores are updated from within playRound()
+// Global variable declarations for score tracking. These are updated from within playRound()
+const humanBoard = document.querySelector('#pp')
 const robotBoard = document.querySelector('#cp')
 
 let humanScore = 0;
 let robotScore = 0;
 
 const messageBoard = document.querySelector('#feedback')
+const playButton = document.querySelector('#reset');
+playButton.addEventListener('click', function(){
+    playMatch()
+});
 
-// Plays a single round of RPS and returns the result. 1 = player wins, 2 = players loses
+// Calls playRound with the selected button as player input
+function playMatch()
+{
+    // Reset scores etc for a new match
+    humanScore = 0;
+    robotScore = 0;
+    robotBoard.textContent = robotScore;
+    humanBoard.textContent = humanScore;
+    messageBoard.textContent = "Choose your fighter!"
+
+    
+    // Event listeners for each of the buttons
+    const btnScissors = document.querySelector('#scissors');
+    btnScissors.addEventListener('click', function(){
+        playRound('scissors', computerPlay())
+    });
+
+    const btnPaper = document.querySelector('#paper');
+    btnPaper.addEventListener('click', function(){
+        playRound('paper', computerPlay())
+    });
+
+    const btnRock = document.querySelector('#rock');
+    btnRock.addEventListener('click', function(){
+        playRound('rock', computerPlay())
+    });
+}
+
+// Plays a single round of RPS and returns the result to a global variable, then updates the html
 function playRound(playerSelection, computerSelection) 
 {
     let result = getWinner(playerSelection, computerSelection) 
@@ -61,14 +78,6 @@ function computerPlay()
     return compChoice; 
     // Code for choosing a random number taken from 
     // https://www.geeksforgeeks.org/how-to-select-a-random-element-from-array-in-javascript/
-}
-
-//  Prompts  the player for input and converts answer to lowercase
-function playerPlay()
-{
-    playerChoice = prompt ("Enter your move: " )
-    playerChoice.toLowerCase()
-    return playerChoice;
 }
 
 // Determines winner based on RPS logic. Returns 1, 2, or 3 for player win, player loss or draw respectively
@@ -123,40 +132,4 @@ function getWinner(player, computer)
     }
 }
 
- // Deprecated for front end implementation. These features are in the HTML interactivity section.
- // The main  function which controls keeping score, launching rounds, game length and displaying the winner.
- function game()
- {
-    let playerScore = 0;
-    let computerScore = 0;
-    const gameLength = 1;
-
-    for (let i = 0; i < gameLength; i++)
-    {
-        outcome = playRound(playerPlay(), computerPlay());
-
-        if (outcome == 1)
-        {
-            playerScore++;
-        }
-        else if (outcome == 2)
-        {
-            computerScore++;
-        }
-    }
-    console.log(`You scored ${playerScore}.`)
-    console.log(`Computer scored ${computerScore}.`)
-
-    if (playerScore > computerScore)
-    {
-         console.log("You won!")
-    }
-    else if (computerScore > playerScore)
-    {
-         console.log("You lost!")
-    }
-    else
-    {
-        console.log("It was a draw!")
-    }
-}
+playMatch()
