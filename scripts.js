@@ -7,11 +7,30 @@ const robotBoard = document.querySelector('#cp')
 let humanScore = 0;
 let robotScore = 0;
 
+const matchLength = 5;
+
 const messageBoard = document.querySelector('#feedback')
 const playButton = document.querySelector('#reset');
 playButton.addEventListener('click', function(){
     playMatch()
 });
+
+// Event listeners for each of the buttons
+const btnScissors = document.querySelector('#scissors');
+btnScissors.addEventListener('click', function(){
+    playRound('scissors', computerPlay())
+});
+
+const btnPaper = document.querySelector('#paper');
+btnPaper.addEventListener('click', function(){
+    playRound('paper', computerPlay())
+});
+
+const btnRock = document.querySelector('#rock');
+btnRock.addEventListener('click', function(){
+    playRound('rock', computerPlay())
+});
+
 
 // Calls playRound with the selected button as player input
 function playMatch()
@@ -23,22 +42,11 @@ function playMatch()
     humanBoard.textContent = humanScore;
     messageBoard.textContent = "Choose your fighter!"
 
-    
-    // Event listeners for each of the buttons
-    const btnScissors = document.querySelector('#scissors');
-    btnScissors.addEventListener('click', function(){
-        playRound('scissors', computerPlay())
-    });
-
-    const btnPaper = document.querySelector('#paper');
-    btnPaper.addEventListener('click', function(){
-        playRound('paper', computerPlay())
-    });
-
-    const btnRock = document.querySelector('#rock');
-    btnRock.addEventListener('click', function(){
-        playRound('rock', computerPlay())
-    });
+    // Re-enables buttons after a reset
+    const weapons = document.querySelectorAll('.weapon');
+    weapons.forEach((button) =>{
+        button.disabled = false;
+    })
 }
 
 // Plays a single round of RPS and returns the result to a global variable, then updates the html
@@ -50,10 +58,12 @@ function playRound(playerSelection, computerSelection)
     {
         humanScore++;
         humanBoard.textContent = humanScore;
-        if(humanScore >= 5)
+
+        if(humanScore >= matchLength)
         {
             messageBoard.textContent = "You won the match!"
-            return; // Add a reset / end condition
+            endRound();
+            return; 
         }
         return;
     }
@@ -61,10 +71,12 @@ function playRound(playerSelection, computerSelection)
     {
         robotScore++;
         robotBoard.textContent = robotScore;
-        if(robotScore >= 5)
+
+        if(robotScore >= matchLength)
         {
             messageBoard.textContent = "You lost the match!"
-            return; // Add a reset / end condition
+            endRound();
+            return; 
         }
         return;
     }   
@@ -130,6 +142,15 @@ function getWinner(player, computer)
             return 2;
         }
     }
+}
+
+// If max wins are reached disables player input
+function endRound()
+{
+    const weapons = document.querySelectorAll('.weapon');
+    weapons.forEach((button) =>{
+        button.disabled = true;
+    })
 }
 
 playMatch()
